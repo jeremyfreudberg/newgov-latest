@@ -109,7 +109,8 @@ starts = json.loads(f1.read())
 for k in starts.keys():
   CONFIG[k][0] = starts[k]
 
-f2 = open(pathlib.Path(os.path.dirname(os.path.realpath(__file__))).joinpath('archive/{0}.html'.format(SORT_DATE)), 'w')
+output_path = pathlib.Path(os.path.dirname(os.path.realpath(__file__))).joinpath(OUTPUT_FILE)
+f2 = open(output_path, 'w')
 
 f2.write(HTML_DOCUMENT_BEGINNING.format(NICE_DATE))
 
@@ -131,7 +132,7 @@ f2.write(HTML_DOCUMENT_END)
 f2.truncate()
 f2.close()
 
-shutil.copy(OUTPUT_FILE, pathlib.Path(__file__).with_name('index.html').absolute())
+shutil.copy(output_path, pathlib.Path(__file__).with_name('index.html').absolute())
 
 f1.seek(0)
 f1.write(json.dumps(starts, indent=2))
