@@ -93,14 +93,16 @@ def get_latest_records(record_type_template, start):
   done = -1 # check one extra record in case not sequential
   num = start
   results = []
+  last_holder = start
   while done < 1:
     res = get_record_address(record_type_template.format(num))
     if res is not None:
       results.append(res)
-      num+=1
+      last_holder = num + 1
     else:
       done += 1
-  return results, num
+    num += 1
+  return results, last_holder
 
 f1 = open(pathlib.Path(__file__).with_name('starts.json').absolute(), 'r+')
 
